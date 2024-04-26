@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+<button id="rzp-button1" class="btn btn-success">proceed to pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_qPpA776V9DCblP", // Enter the Key ID generated from the Dashboard
+    "amount": "{{data.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Estore Pvt Ltd",
+    "description": "Test Transaction",
+    "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAsQMBIgACEQEDEQH/xAAcAAEBAAICAwAAAAAAAAAAAAAAAQIHAwUEBgj/xAA/EAACAQMCAgQIDQIHAAAAAAAAAQIDBAUGERIhBzFBkxMWF1FWYXGBCBQiQlJTVJGUocHT4jKyFSQzkqKx0f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDc6W5klsOoyQBIySCRQAKAAKAIUAByHIAAQoAgKAMQUAYtGLRmRoDAwa5nI0YtAYAuwAzM4oxiZgCkKAKOwAACgAAAAAAAAQFIAIUAQhQwMWjBnIYyQGIAAzSKABSkKAPSOlTWd5ozFWdxY2cK9S6rOlx1W+CntHfnt1t/oz3c4L6xtMjbytr+2o3NCX9VKtTU4v2p8gNAx6cNSJbOxxz9e0l+pnDpy1DxLix2PlHfmlxrkbhloTSUuvTeL91rBfoa96aNFYfG6VhksJi7azqW9xHwroU9nKEuXPb1tAbQ0zmKOoMDY5a3XDTuqSnwt7uD6nH3NNe47Q1Z8HzK/GtKXOOk95WVzLg5/Mn8r/vi+82mAAAAAAAAAIE9wAZCkAgZWQDHYFAFKiFAqAAFAAA6XWWKWb0rlcby4q9tOMN+ye28X96R3QA+N8Tmcphp1J4q+uLKpVSVXwMuFy26k/Ydl476r9Ich3o19jP8H1rmLFJqMLhzhv8ARmlNf3HQAd/476r9Ich3o8d9V+kOQ706AAd/476r9Ich3o8d9V+kOQ706AAd/wCO+q/SHId6PHfVfpDke9OgAG+uhDWObz9fIY7MVpXdO2pQq07mUUpR3bXDJrr3617GbaNd9BuBWJ0bC9qx2uMnLw73+h1Q/Ln7zYoEDAQEIUgAAACkKBQABQAAAAGgvhC4n4vn8floR2jdW7o1Gly44Pde9qX/ABNTo+junjFq90JUu4x3qWFenWTXWot8Mv7t/cfOKAAAAAAB2emcPPUGoLDE0+L/ADVVRk4/Nh1yf3JnWG4Pg96f8Nf32oK8PkUIO2t9/pPZzl92y98gN4WtCna29K3oQUKVKChCKXKMUtkjlAAgQCAhCkAgAApSFAoAAoAAAADwM9j6eWwl9jqq3hdUJ0mvatj5KwuEucrnKOFp1aFG7q1nRUqzagprfk2k32bdR9hs+W+ki3q6a6SshUtWqMo3MLy3l1L5W0uXq4uJe4DvvIbqv7fhe+q/tjyGaq+34Xvqv7Z4flq1b9bjfw/8h5atW/W438P/ACA8zyGaq+34Xvqv7Y8hmqvt+F76r+2eH5atW/W438P/ACHlq1b9bjfw/wDIDzF0Gap3W+QwyXbtVq/tm6dE6dpaW03Z4mlNVJUk3VqpbeEnJ7yf/nqSNFeWrVv1uN/D/wAj33oj6Qc5qzLXNllLSjUo06DqK6oU3FU5bpcMutc93tz35dQG1gABAgAIQpAAAAFIVAVAhQKCFAAAAzwMtcY7H2dbIZTwEKFGHFUq1Irkkeea36fY3L0IpW/F4KF7SlcbdkPlJb+ricPyA9euum3EU7907XTLrWalt4aVWMJtedQ4X+cl7jZemMvhNUYuGQxUKU6TfDOMqaUqc11xkuxnyQjdHwcI3HHnp7S+K7UFu09nU+X1evZrf2oDcztLX7PR/wBiPSdea9wOj6kbSdjG9yMocatqSjHhXY5y25b+xv1HvjPlLpOjcQ1/m/jSkpu43jxLrjsuHb1bAbb0f0rYHPZGlj8hiYYy4rS4aMpSjUpyl2Jy4Vs360bQpU404qNOMYx8yWx8X041ak4QoKTrSklTUf6uLflt699j7MslUjaUFWbdRU4qe/n25gc4BAAYIAIAAA3IARTCLMwKVGJQKAAKCFAHBeWtC+tqttd0oVqFWDhUpzW6kn2M5wBqu56DdO1bp1KN9kre3b/0IzhLhXmUnFvb27mwsDhLDAY6lj8VbxoW1P5q5tvtbfa35zsgAPU9a9H+E1hKFa/hVoXlOPDC6t2lPh+i90017V7Nj2wAegaS6KMBpu/hf8VzfXdN70p3LXDTfnUUlz9b39x7+CAAAAZAAIRlMZMCAgAGSZgnuXcDkKYplApUYgDLkORi9zDmBy7jc4XxGDUwPJ3XnG6854bVUcNXtA8zcHipTM1xAc+45HF8ozW/agMiEAFICNgGzB8ytmLewFBhuwAXWZgAVGSYAFAAFAAAAAAAAAAAAAQAARmLAAhg+sACAAD/2Q==",
+    "order_id": "{{data.oid}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+        window.location.href="http://127.0.0.1:8000/sendmail";
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+{% endblock 'main' %}

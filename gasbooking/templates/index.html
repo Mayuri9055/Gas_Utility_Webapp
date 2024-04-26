@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'main' %}
+<div class="row" ><!--row 2 start-->
+    <div class="col-md-4" style="background-color: aqua;">
+       
+
+        <h5>Filter by company</h5>
+        <hr>
+        <p><a href="/home2" class="anchor">by all</a></p>
+        <p><a href="/catfilter/1" class="anchor">BP(Bhart gas)</a></p>
+        <p><a href="/catfilter/2" class="anchor">HP(Hindustan gas)</a></p>
+        <p><a href="/catfilter/3" class="anchor">INDIAN GAS</a></p>
+
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+          {% for x in products %}
+            <div class="col-md-4">
+                <div class="card" style="width: 100%;">
+                    <img src="{{x.pimage.url}}" class="card-img-top" alt="..." >
+                    <div class="card-body">
+                      <h5 class="card-title">{{x.name}}</h5>
+                      <p class="card-text">{{x.price}}</p>
+                      {% if x.cat == 1 %}
+                    <p class="card-text">BP GAS AGANCY</p>
+                    {% elif x.cat == 2 %}
+                    <p class="card-text">HP GAS AGANCY</p>
+                    {% else %}
+                    <p class="card-text">INDIAN GAS AGANCY</p>
+                    {% endif %}
+                      <a href="/pd/{{x.id}}" class="btn btn-primary">See Details</a>
+                    </div>
+                </div>
+            
+
+            </div>
+            {% endfor %}
+
+
+
+
+        </div>
+
+    </div>
+
+</div><!--row 2 end-->
+
+{% endblock 'main' %}
